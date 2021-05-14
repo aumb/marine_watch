@@ -5,6 +5,7 @@ import 'package:marine_watch/app/domain/repositories/app_repository.dart';
 import 'package:marine_watch/app/domain/usecases/cache_is_fresh_install.dart';
 import 'package:marine_watch/app/domain/usecases/get_cached_is_fresh_install.dart';
 import 'package:marine_watch/onboarding/presentation/cubit/onboarding_cubit.dart';
+import 'package:marine_watch/utils/nav/navgiation_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
@@ -13,6 +14,7 @@ Future<void> init() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   //Blocs & Cubits
   sl
+    ..registerLazySingleton(() => NavigationManager())
     ..registerFactory(
       () => OnboardingCubit(
         cacheIsFreshInstall: sl(),
