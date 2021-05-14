@@ -1,0 +1,1 @@
+const isFreshInstallConst = 'isFreshInstall';

@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:bloc/bloc.dart';
 import 'package:marine_watch/app/app.dart';
 import 'package:marine_watch/app/app_bloc_observer.dart';
+import 'package:marine_watch/injection_container.dart';
 
 void main() {
   Bloc.observer = AppBlocObserver();
@@ -20,7 +21,11 @@ void main() {
   };
 
   runZonedGuarded(
-    () => runApp(const App()),
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      await init();
+      runApp(const App());
+    },
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }
