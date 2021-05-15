@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marine_watch/app/app.dart';
 import 'package:marine_watch/app/presentation/bloc/app_bloc.dart';
+import 'package:marine_watch/home/presentation/home_screen.dart';
 import 'package:marine_watch/injection_container.dart';
 import 'package:marine_watch/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:mocktail/mocktail.dart';
@@ -70,7 +71,7 @@ void main() {
           child: AppView(),
         ),
       );
-      expect(find.byType(Container), findsOneWidget);
+      expect(find.byType(HomeScreen), findsOneWidget);
     });
   });
 }

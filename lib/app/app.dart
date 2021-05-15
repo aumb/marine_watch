@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:marine_watch/app/presentation/bloc/app_bloc.dart';
+import 'package:marine_watch/home/presentation/home_screen.dart';
 import 'package:marine_watch/injection_container.dart';
 import 'package:marine_watch/l10n/l10n.dart';
 import 'package:marine_watch/onboarding/presentation/screens/onboarding_screen.dart';
@@ -56,6 +57,6 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return context.read<AppBloc>().isFreshInstall
         ? OnboardingScreen()
-        : Container();
+        : HomeScreen();
   }
 }
