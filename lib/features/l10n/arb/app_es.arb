@@ -1,0 +1,35 @@
+{
+    "@@locale": "es",
+    "counterAppBarTitle": "Contador",
+    "@counterAppBarTitle": {
+        "description": "Texto mostrado en la AppBar de la página del contador"
+    },
+    "onboardingTitle": "Welcome to\nthe underwater\nworld",
+    "@onboardingTitle": {
+        "description": "Text shown in big size on the onboarding screen"
+    },
+    "onboardingSubtitle": "Plan your marine watching.\nFind species or intresting specimens in a few moments.",
+    "@onboardingSubtitle": {
+        "description": "Text shown in big size on the onboarding screen"
+    },
+    "skip": "Skip",
+    "@skip": {
+        "description": "The text for a skip button"
+    },
+    "filter": "Filter",
+    "@filter": {
+        "description": "The text for a filter button"
+    },
+    "species": "Species",
+    "@species": {
+        "description": "The text for a species title"
+    },
+    "showResults": "Show results",
+    "@showResults": {
+        "description": "The text for a show results button"
+    },
+    "details": "Details",
+    "@details": {
+        "description": "The text for a details button"
+    }
+}

@@ -12,7 +12,7 @@ class ServerException implements Exception {
   static ServerException get defaultError =>
       ServerException(message: '', code: 500);
 
-  static ServerException handleException({required dynamic? error}) {
+  static ServerException handleException({required dynamic error}) {
     safePrint(error?.toString() ?? '');
     return ServerException.defaultError;
   }
@@ -27,7 +27,7 @@ class CacheException implements Exception {
 
   static CacheException get defaultError => CacheException(message: '');
 
-  static CacheException handleException({required dynamic? error}) {
+  static CacheException handleException({required dynamic error}) {
     safePrint(error?.toString() ?? '');
     return CacheException.defaultError;
   }

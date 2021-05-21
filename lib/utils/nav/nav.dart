@@ -128,6 +128,7 @@ class CustomNavConfig extends ChangeNotifier {
   }
 
   /// Simple method to use instead of `await Navigator.push(context, ...)`
+  // ignore: comment_references
   /// The result can be set either by [returnWith]
   Future<dynamic> waitAndPush(Uri uri, {dynamic params}) async {
     _boolResultCompleter = Completer<dynamic>();

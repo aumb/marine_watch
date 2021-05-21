@@ -5,14 +5,16 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:marine_watch/app/presentation/bloc/app_bloc.dart';
-import 'package:marine_watch/home/presentation/home_screen.dart';
+import 'package:marine_watch/features/home/presentation/home_screen.dart';
 import 'package:marine_watch/injection_container.dart';
-import 'package:marine_watch/l10n/l10n.dart';
-import 'package:marine_watch/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:marine_watch/features/l10n/l10n.dart';
+import 'package:marine_watch/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:marine_watch/utils/bitmap_utils.dart';
 import 'package:marine_watch/utils/theme_utils.dart';
 
 class App extends StatefulWidget {
@@ -46,13 +48,28 @@ class _AppState extends State<App> {
           GlobalMaterialLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.supportedLocales,
-        home: AppView(),
+        home: BlocBuilder<AppBloc, AppState>(
+          builder: (context, state) {
+            return AppView();
+          },
+        ),
       ),
     );
   }
 }
 
-class AppView extends StatelessWidget {
+class AppView extends StatefulWidget {
+  @override
+  _AppViewState createState() => _AppViewState();
+}
+
+class _AppViewState extends State<AppView> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    sl<BitmapManager>().init(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return context.read<AppBloc>().isFreshInstall

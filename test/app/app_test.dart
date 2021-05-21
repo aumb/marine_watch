@@ -11,11 +11,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marine_watch/app/app.dart';
 import 'package:marine_watch/app/presentation/bloc/app_bloc.dart';
-import 'package:marine_watch/home/presentation/home_screen.dart';
+import 'package:marine_watch/features/home/presentation/home_screen.dart';
+import 'package:marine_watch/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:marine_watch/injection_container.dart';
-import 'package:marine_watch/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/helpers.dart';
 
@@ -30,14 +29,17 @@ void main() {
     late AppBloc appBloc;
 
     setUpAll(() async {
-      SharedPreferences.setMockInitialValues({});
-      await init();
+      await init(isTesting: true);
     });
 
     setUp(() {
       registerFallbackValue<AppState>(AppStateFake());
       registerFallbackValue<AppEvent>(AppEventFake());
       appBloc = MockAppBloc()..add(GetIsFreshInstallEvent());
+    });
+
+    tearDown(() {
+      appBloc.close();
     });
 
     testWidgets('renders App', (tester) async {
@@ -71,6 +73,7 @@ void main() {
           child: AppView(),
         ),
       );
+      await tester.pumpAndSettle();
       expect(find.byType(HomeScreen), findsOneWidget);
     });
   });

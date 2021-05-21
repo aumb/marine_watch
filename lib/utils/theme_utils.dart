@@ -6,6 +6,7 @@ class ThemeUtils {
   ThemeData get themeData {
     return ThemeData(
         dividerColor: Colors.white70,
+        indicatorColor: ColorUtils.accentColor,
         dialogBackgroundColor: ColorUtils.backgroundColor,
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           foregroundColor: ColorUtils.backgroundColor,
@@ -86,6 +87,8 @@ class ThemeUtils {
           ),
           headline5: TextStyle(
             color: ColorUtils.white87,
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
           ),
           headline6: TextStyle(
             color: ColorUtils.white87,
