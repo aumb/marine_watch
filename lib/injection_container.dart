@@ -16,6 +16,7 @@ import 'package:marine_watch/features/favorites/presentation/bloc/favorites_bloc
 import 'package:marine_watch/features/home/presentation/bloc/home_bloc.dart';
 import 'package:marine_watch/features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'package:marine_watch/features/sighting/presentation/bloc/sighting_bloc.dart';
+import 'package:marine_watch/features/sighting/presentation/cubit/toggle_sighting_cubit.dart';
 import 'package:marine_watch/features/sightings/data/datasources/sightings_remote_data_source.dart';
 import 'package:marine_watch/features/sightings/data/repositories/sightings_repository_impl.dart';
 import 'package:marine_watch/features/sightings/domain/repositories/sightings_repository.dart';
@@ -148,5 +149,8 @@ Future<void> init({bool isTesting = false}) async {
         favoriteBloc: sl(),
         sighting: sighting,
       ),
+    )
+    ..registerFactory(
+      () => ToggleSightingCubit(),
     );
 }

@@ -63,24 +63,28 @@ class _SightingCardState extends State<SightingCard> {
                 const SizedBox(width: 6),
                 Expanded(
                   child: Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
+                    child: Stack(
+                      children: [
                         _buildFavorite(),
-                        Text(
-                          StringUtils.capitalizeFirstofEach(
-                              widget.sighting?.species?.value ?? ''),
-                          style: Theme.of(context).textTheme.headline5,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              StringUtils.capitalizeFirstofEach(
+                                  widget.sighting?.species?.value ?? ''),
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              widget.sighting?.description ?? '',
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                            ),
+                            const SizedBox(height: 2),
+                            _buildDetailsButton(context.l10n),
+                          ],
                         ),
-                        const SizedBox(height: 6),
-                        Text(
-                          widget.sighting?.description ?? '',
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                        ),
-                        const SizedBox(height: 2),
-                        _buildDetailsButton(context.l10n),
                       ],
                     ),
                   ),

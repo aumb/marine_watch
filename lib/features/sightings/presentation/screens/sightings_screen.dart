@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:marine_watch/features/sighting/presentation/cubit/toggle_sighting_cubit.dart';
 import 'package:marine_watch/features/sighting/presentation/widgets/sighting_preview_card.dart';
-import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/sightings/presentation/bloc/sightings_bloc.dart';
 import 'package:marine_watch/features/sightings/presentation/widgets/filter_widget.dart';
 import 'package:marine_watch/features/sightings/presentation/widgets/map_widget.dart';
@@ -17,24 +17,34 @@ class SightingsScreen extends StatefulWidget {
 
 class _SightingsScreenState extends State<SightingsScreen> {
   late SightingsBloc _bloc;
+  late ToggleSightingCubit _toggleSightingCubit;
 
   @override
   void initState() {
     super.initState();
     _bloc = sl<SightingsBloc>();
+    _toggleSightingCubit = sl<ToggleSightingCubit>();
     _bloc.add(GetSightingsEvent());
   }
 
   @override
   void dispose() {
     _bloc.close();
+    _toggleSightingCubit.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _bloc,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SightingsBloc>(
+          create: (context) => _bloc,
+        ),
+        BlocProvider<ToggleSightingCubit>(
+          create: (context) => _toggleSightingCubit,
+        ),
+      ],
       child: BlocConsumer<SightingsBloc, SightingsState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -52,8 +62,6 @@ class SightingsView extends StatefulWidget {
 
 class _SightingsViewState extends State<SightingsView> {
   late CameraPosition _cameraPosition;
-
-  bool showCard = false;
 
   SightingsBloc get _bloc => context.read<SightingsBloc>();
 
@@ -83,14 +91,7 @@ class _SightingsViewState extends State<SightingsView> {
           _buildMap(),
           if (_bloc.state is SightingsLoading) _buildLoader(),
           _buildFilter(context),
-          showCard
-              ? SafeArea(
-                  child: SightingPreviewCard(
-                    sighting: _bloc.selectedSighting,
-                    onDismiss: () => _bloc.selectedSighting = null,
-                  ),
-                )
-              : SizedBox.shrink(),
+          _ToggleSightingWidget(),
         ],
       ),
     );
@@ -103,6 +104,7 @@ class _SightingsViewState extends State<SightingsView> {
       right: 0,
       child: FilterWidget(
         onShowResults: (params) {
+          context.read<ToggleSightingCubit>().toggleSightingToNull();
           _bloc
             ..species = params?.species
             ..add(
@@ -144,19 +146,6 @@ class _SightingsViewState extends State<SightingsView> {
     );
   }
 
-  Future<void> resetSelectedSighting() async {
-    _bloc.selectedSighting = null;
-    showCard = false;
-    setState(() {});
-    await Future.delayed(Duration(milliseconds: 1));
-  }
-
-  void setSelectedSighting(Sighting? sighting) {
-    showCard = true;
-    _bloc.selectedSighting = sighting;
-    setState(() {});
-  }
-
   void setupMarkerIcons() async {
     final _sightings = _bloc.sightings ?? [];
     final _prevMarkers = _bloc.markers;
@@ -172,9 +161,10 @@ class _SightingsViewState extends State<SightingsView> {
       if (canAddMarker)
         _bloc.markers!.add(Marker(
           icon: _mapPin,
-          onTap: () async {
-            await resetSelectedSighting();
-            setSelectedSighting(sighting);
+          onTap: () {
+            context
+                .read<ToggleSightingCubit>()
+                .toggleSightingToNullThenValue(sighting);
           },
           markerId: MarkerId(sighting!.id ?? ''),
           position: LatLng(
@@ -188,5 +178,22 @@ class _SightingsViewState extends State<SightingsView> {
     if (_bloc.markers?.isEmpty ?? false) {
       _bloc.markers = _prevMarkers;
     }
+  }
+}
+
+class _ToggleSightingWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final showCard =
+        context.select((ToggleSightingCubit c) => c.sighting != null);
+    return showCard
+        ? SafeArea(
+            child: SightingPreviewCard(
+              sighting: context.read<ToggleSightingCubit>().sighting,
+              onDismiss: () =>
+                  context.read<ToggleSightingCubit>().toggleSightingToNull(),
+            ),
+          )
+        : const SizedBox.shrink();
   }
 }
