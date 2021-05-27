@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:marine_watch/features/sighting/presentation/widgets/sighting_preview_widget.dart';
+import 'package:marine_watch/features/sighting/presentation/widgets/sighting_preview_card.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/sightings/domain/models/species.dart';
 import 'package:marine_watch/features/sightings/presentation/bloc/sightings_bloc.dart';
@@ -101,7 +101,7 @@ void main() {
             .thenAnswer((invocation) => sighting);
         _setupLoadedState();
         await _setupSightingsView(tester);
-        expect(find.byType(SightingPreviewWidget), findsOneWidget);
+        expect(find.byType(SightingPreviewCard), findsOneWidget);
       },
     );
   });

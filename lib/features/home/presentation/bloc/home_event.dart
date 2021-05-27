@@ -6,3 +6,15 @@ abstract class HomeEvent extends Equatable {
   @override
   List<Object?> get props => [];
 }
+
+class GetFavoriteSightingsEvent extends HomeEvent {}
+
+class ShowErrorEvent extends HomeEvent {
+  ShowErrorEvent({required this.message, this.code});
+
+  final String message;
+  final int? code;
+
+  @override
+  List<Object?> get props => [message, props];
+}

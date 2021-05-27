@@ -6,9 +6,15 @@ import 'package:marine_watch/features/sightings/domain/models/species.dart';
 List<Sighting?> sightingsFromJson(String str) =>
     Sighting.fromJsonList(json.decode(str));
 
+List<Sighting?> sightingsFromStringList(List<String> str) =>
+    Sighting.fromStringList(str);
+
 Sighting sightingFromJson(String str) => Sighting.fromJson(json.decode(str));
 
-String sightingToJson(Sighting data) => json.encode(data.toJson());
+String sightingToJson(Sighting? data) => json.encode(data?.toJson());
+
+List<String> sightingsToJsonList(List<Sighting?> data) =>
+    Sighting.toJsonList(data);
 
 class Sighting extends Equatable {
   Sighting({
@@ -54,12 +60,32 @@ class Sighting extends Equatable {
 
   static List<Sighting?> fromJsonList(List? json) {
     if (json != null && json.isNotEmpty) {
-      List<Sighting?> images =
-          json.map((image) => Sighting.fromJson(image)).toList();
-      return images;
+      List<Sighting?> sightings =
+          json.map((sighting) => Sighting.fromJson(sighting)).toList();
+      return sightings;
     } else {
       return [];
     }
+  }
+
+  static List<Sighting?> fromStringList(List<String> list) {
+    final sightings = <Sighting?>[];
+
+    for (var item in list) {
+      sightings.add(sightingFromJson(item));
+    }
+
+    return sightings;
+  }
+
+  static List<String> toJsonList(List<Sighting?> list) {
+    final sightings = <String>[];
+
+    for (var item in list) {
+      sightings.add(sightingToJson(item));
+    }
+
+    return sightings;
   }
 
   Map<String, dynamic> toJson() => {
@@ -75,6 +101,21 @@ class Sighting extends Equatable {
         'created_at': createdAt?.toIso8601String(),
         'updated_at': updatedAt?.toIso8601String(),
       };
+
+  static Sighting defaultSighting = Sighting(
+    id: '59d039a0686f743ec5020000',
+    species: Species.harborPorpoise,
+    quantity: 20,
+    description: 'From the Inn at Langley looking east there was a very '
+        'large group of porpoise swimming south in the Saratoga passage',
+    url: 'http://hotline.whalemuseum.org/sightings/59d039a0686f743ec5020000',
+    latitude: 48.047447813103005,
+    longitude: -122.40477597314452,
+    location: 'Camano Island, WA, US',
+    sightedAt: DateTime.tryParse('2017-10-01T00:38:00Z'),
+    createdAt: DateTime.tryParse('2017-10-01T00:41:04Z'),
+    updatedAt: DateTime.tryParse('2017-10-03T22:01:43Z'),
+  );
 
   @override
   List<Object?> get props => [

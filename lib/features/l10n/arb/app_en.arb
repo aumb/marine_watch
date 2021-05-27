@@ -31,5 +31,25 @@
     "details": "Details",
     "@details": {
         "description": "The text for a details button"
+    },
+    "noFavsTitle": "You have no favorites. If you wish to add some head to the maps page, select a sighting and click on ",
+    "@noFavsTitle": {
+        "description": "The text that appears on the screen on the favorites screen if the user has no favorite sightings"
+    },
+    "noFavsTitle2": " when the icon turns blue come back to this screen.",
+    "@noFavsTitle2": {
+        "description": "The secondary text that appears on the screen on the favorites screen if the user has no favorite sightings"
+    },
+    "favorites": "Favorites",
+    "@favorites": {
+        "description": "The title of the favorites screen"
+    },
+    "genericError": "An error has occured, please try again",
+    "@genericError": {
+        "description": "A generic error"
+    },
+    "retry": "Retry",
+    "@retry": {
+        "description": "Text for a retry button"
     }
 }

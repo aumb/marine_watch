@@ -27,15 +27,18 @@ class _FilterWidgetState extends State<FilterWidget> {
     final l10n = context.l10n;
     return GestureDetector(
       key: const Key('sightings_filter_button'),
-      onTap: () => sl<NavigationManager>().navigateTo(
-        BlocProvider.value(
-          value: context.read<SightingsBloc>(),
-          child: SightingsFilterScreen(
-            onShowResults: widget.onShowResults,
+      onTap: () {
+        sl<NavigationManager>().navigateTo(
+          BlocProvider.value(
+            value: context.read<SightingsBloc>(),
+            child: SightingsFilterScreen(
+              onShowResults: widget.onShowResults,
+            ),
           ),
-        ),
-        isFullScreenDialog: true,
-      ),
+          isFullScreenDialog: true,
+        );
+        // context.read<SightingsBloc>().selectedSighting = null;
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

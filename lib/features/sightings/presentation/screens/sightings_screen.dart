@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:marine_watch/features/sighting/presentation/widgets/sighting_preview_widget.dart';
+import 'package:marine_watch/features/sighting/presentation/widgets/sighting_preview_card.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/sightings/presentation/bloc/sightings_bloc.dart';
 import 'package:marine_watch/features/sightings/presentation/widgets/filter_widget.dart';
@@ -53,6 +53,8 @@ class SightingsView extends StatefulWidget {
 class _SightingsViewState extends State<SightingsView> {
   late CameraPosition _cameraPosition;
 
+  bool showCard = false;
+
   SightingsBloc get _bloc => context.read<SightingsBloc>();
 
   BitmapManager get _bitmapManager => sl<BitmapManager>();
@@ -81,12 +83,14 @@ class _SightingsViewState extends State<SightingsView> {
           _buildMap(),
           if (_bloc.state is SightingsLoading) _buildLoader(),
           _buildFilter(context),
-          SafeArea(
-            child: SightingPreviewWidget(
-              sighting: _bloc.selectedSighting,
-              onDismiss: () => _bloc.selectedSighting = null,
-            ),
-          ),
+          showCard
+              ? SafeArea(
+                  child: SightingPreviewCard(
+                    sighting: _bloc.selectedSighting,
+                    onDismiss: () => _bloc.selectedSighting = null,
+                  ),
+                )
+              : SizedBox.shrink(),
         ],
       ),
     );
@@ -140,12 +144,17 @@ class _SightingsViewState extends State<SightingsView> {
     );
   }
 
-  void resetSelectedSighting() {
+  Future<void> resetSelectedSighting() async {
     _bloc.selectedSighting = null;
+    showCard = false;
+    setState(() {});
+    await Future.delayed(Duration(milliseconds: 1));
   }
 
   void setSelectedSighting(Sighting? sighting) {
+    showCard = true;
     _bloc.selectedSighting = sighting;
+    setState(() {});
   }
 
   void setupMarkerIcons() async {
@@ -163,9 +172,9 @@ class _SightingsViewState extends State<SightingsView> {
       if (canAddMarker)
         _bloc.markers!.add(Marker(
           icon: _mapPin,
-          onTap: () {
+          onTap: () async {
+            await resetSelectedSighting();
             setSelectedSighting(sighting);
-            if (mounted) setState(() {});
           },
           markerId: MarkerId(sighting!.id ?? ''),
           position: LatLng(

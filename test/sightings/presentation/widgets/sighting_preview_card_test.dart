@@ -2,11 +2,12 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:marine_watch/features/sighting/presentation/widgets/sighting_preview_widget.dart';
+import 'package:marine_watch/features/sighting/presentation/widgets/sighting_preview_card.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/sightings/domain/models/species.dart';
 import 'package:marine_watch/features/sightings/presentation/bloc/sightings_bloc.dart';
 import 'package:marine_watch/injection_container.dart';
+import 'package:marine_watch/features/sighting/presentation/widgets/sighting_card.dart';
 import 'package:mocktail/mocktail.dart';
 import '../../../helpers/helpers.dart';
 
@@ -57,7 +58,7 @@ void main() {
     await tester.pumpApp(
       BlocProvider.value(
         value: sightingsBloc,
-        child: SightingPreviewWidget(
+        child: SightingPreviewCard(
           sighting: sightingsBloc.selectedSighting,
         ),
       ),
@@ -69,7 +70,14 @@ void main() {
       _setupLoadedState();
       await _setupSightingPreviewWidget(tester);
       await tester.pumpAndSettle();
-      expect(find.byType(SightingPreviewWidget), findsOneWidget);
+      expect(find.byType(SightingPreviewCard), findsOneWidget);
+    });
+
+    testWidgets('renders SightingsCard', (tester) async {
+      _setupLoadedState();
+      await _setupSightingPreviewWidget(tester);
+      await tester.pumpAndSettle();
+      expect(find.byType(SightingCard), findsOneWidget);
     });
 
     testWidgets('renders Card if sighting is not null', (tester) async {
