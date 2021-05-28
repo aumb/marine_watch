@@ -1,9 +1,9 @@
-import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
 import 'package:dartz/dartz.dart';
 import 'package:marine_watch/features/sightings/data/datasources/sightings_remote_data_source.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/sightings/domain/models/species.dart';
 import 'package:marine_watch/features/sightings/domain/repositories/sightings_repository.dart';
+import 'package:marine_watch/utils/custom_lat_lng.dart';
 import 'package:marine_watch/utils/errors/exceptions.dart';
 import 'package:marine_watch/utils/errors/failure.dart';
 
@@ -21,7 +21,7 @@ class SightingsRepositoryImpl implements SightingsRepository {
     int? page,
     DateTime? since,
     DateTime? until,
-    LatLng? near,
+    CustomLatLng? near,
     int? radius,
   }) async {
     try {
@@ -47,7 +47,7 @@ class SightingsRepositoryImpl implements SightingsRepository {
     int? page,
     DateTime? since,
     DateTime? until,
-    LatLng? near,
+    CustomLatLng? near,
     int? radius,
   }) async {
     try {

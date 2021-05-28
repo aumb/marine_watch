@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marine_watch/features/favorites/domain/repositories/favorites_repository.dart';
-import 'package:marine_watch/features/favorites/domain/usecases/cache_sighting.dart';
 import 'package:marine_watch/features/favorites/domain/usecases/delete_cahced_sighting.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/sightings/domain/models/species.dart';

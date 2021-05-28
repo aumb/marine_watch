@@ -5,8 +5,6 @@ import 'package:marine_watch/features/favorites/domain/usecases/cache_sighting.d
 import 'package:marine_watch/features/favorites/presentation/bloc/favorites_bloc.dart';
 import 'package:marine_watch/features/sighting/presentation/bloc/sighting_bloc.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
-import 'package:marine_watch/utils/errors/exceptions.dart';
-import 'package:marine_watch/utils/errors/failure.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../fixtures/fixture_reader.dart';
@@ -67,7 +65,6 @@ void main() {
   }
 
   group('Sighting bloc', () {
-    final cacheFailure = CacheFailure(exception: CacheException.defaultError);
     test('initial state is [SightingInitial]', () {
       setupLoadedFavoriteState();
       expect(

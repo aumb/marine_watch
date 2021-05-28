@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/sightings/domain/models/species.dart';
 import 'package:marine_watch/features/sightings/domain/repositories/sightings_repository.dart';
+import 'package:marine_watch/utils/custom_lat_lng.dart';
 import 'package:marine_watch/utils/errors/failure.dart';
 import 'package:marine_watch/utils/usecases.dart';
 
@@ -45,7 +45,7 @@ class GetSightingsParams extends Equatable {
   final int? page;
   final DateTime? since;
   final DateTime? until;
-  final LatLng? near;
+  final CustomLatLng? near;
   final int? radius;
 
   GetSightingsParams copyWith({
@@ -54,7 +54,7 @@ class GetSightingsParams extends Equatable {
     int? page,
     DateTime? since,
     DateTime? until,
-    LatLng? near,
+    CustomLatLng? near,
     int? radius,
   }) {
     return GetSightingsParams(

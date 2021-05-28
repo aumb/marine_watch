@@ -23,7 +23,7 @@ class MockHomeBloc extends MockBloc<HomeEvent, HomeState> implements HomeBloc {}
 
 void main() {
   group('Home', () {
-    late HomeBloc homeBloc;
+    // late HomeBloc homeBloc;
 
     setUpAll(() async {
       await init(isTesting: true);
@@ -32,7 +32,7 @@ void main() {
     setUp(() {
       registerFallbackValue<HomeState>(HomeStateFake());
       registerFallbackValue<HomeEvent>(HomeEventFake());
-      homeBloc = MockHomeBloc();
+      // homeBloc = MockHomeBloc();
     });
 
     testWidgets('renders HomeView', (tester) async {

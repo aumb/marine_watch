@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/sightings/domain/models/species.dart';
+import 'package:marine_watch/utils/custom_lat_lng.dart';
 import 'package:marine_watch/utils/errors/failure.dart';
 
 abstract class SightingsRepository {
@@ -11,7 +11,7 @@ abstract class SightingsRepository {
     int? page,
     DateTime? since,
     DateTime? until,
-    LatLng? near,
+    CustomLatLng? near,
     int? radius,
   });
 
@@ -21,7 +21,7 @@ abstract class SightingsRepository {
     int? page,
     DateTime? since,
     DateTime? until,
-    LatLng? near,
+    CustomLatLng? near,
     int? radius,
   });
 }

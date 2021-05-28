@@ -8,6 +8,7 @@ import 'package:marine_watch/features/sightings/presentation/widgets/map_widget.
 import 'package:marine_watch/features/sightings/presentation/widgets/toggle_sighting_widget.dart';
 import 'package:marine_watch/injection_container.dart';
 import 'package:marine_watch/utils/bitmap_utils.dart';
+import 'package:marine_watch/utils/custom_lat_lng.dart';
 import 'package:marine_watch/utils/widgets/bouncing_dot_loader.dart';
 
 class SightingsScreen extends StatefulWidget {
@@ -132,9 +133,14 @@ class _SightingsViewState extends State<SightingsView> {
       onCameraIdle: () {
         _bloc.hasMovedCamera = true;
         if (_bloc.shouldGetMarkers) {
-          context
-              .read<SightingsBloc>()
-              .add(GetSightingsEvent(latLng: _cameraPosition.target));
+          context.read<SightingsBloc>().add(
+                GetSightingsEvent(
+                  latLng: CustomLatLng(
+                    _cameraPosition.target.latitude,
+                    _cameraPosition.target.longitude,
+                  ),
+                ),
+              );
         }
       },
       onCameraMove: (position) {

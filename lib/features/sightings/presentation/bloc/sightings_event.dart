@@ -13,7 +13,7 @@ class GetSightingsEvent extends SightingsEvent {
     this.species,
   });
 
-  final LatLng? latLng;
+  final CustomLatLng? latLng;
   final Species? species;
 
   @override

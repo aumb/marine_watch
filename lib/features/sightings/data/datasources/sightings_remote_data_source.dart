@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/sightings/domain/models/species.dart';
 import 'package:marine_watch/utils/api.dart';
+import 'package:marine_watch/utils/custom_lat_lng.dart';
 import 'package:marine_watch/utils/errors/exceptions.dart';
 
 abstract class SightingsRemoteDataSource {
@@ -12,7 +12,7 @@ abstract class SightingsRemoteDataSource {
     int? page,
     DateTime? since,
     DateTime? until,
-    LatLng? near,
+    CustomLatLng? near,
     int? radius,
   });
 
@@ -22,7 +22,7 @@ abstract class SightingsRemoteDataSource {
     int? page,
     DateTime? since,
     DateTime? until,
-    LatLng? near,
+    CustomLatLng? near,
     int? radius,
   });
 }
@@ -41,7 +41,7 @@ class SightingsRemoteDataSourceImpl implements SightingsRemoteDataSource {
     int? page,
     DateTime? since,
     DateTime? until,
-    LatLng? near,
+    CustomLatLng? near,
     int? radius,
   }) async {
     try {
@@ -71,7 +71,7 @@ class SightingsRemoteDataSourceImpl implements SightingsRemoteDataSource {
     int? page,
     DateTime? since,
     DateTime? until,
-    LatLng? near,
+    CustomLatLng? near,
     int? radius,
   }) async {
     try {
