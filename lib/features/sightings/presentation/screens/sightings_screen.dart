@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:marine_watch/features/sighting/presentation/cubit/toggle_sighting_cubit.dart';
-import 'package:marine_watch/features/sighting/presentation/widgets/sighting_preview_card.dart';
 import 'package:marine_watch/features/sightings/presentation/bloc/sightings_bloc.dart';
 import 'package:marine_watch/features/sightings/presentation/widgets/filter_widget.dart';
 import 'package:marine_watch/features/sightings/presentation/widgets/map_widget.dart';
+import 'package:marine_watch/features/sightings/presentation/widgets/toggle_sighting_widget.dart';
 import 'package:marine_watch/injection_container.dart';
 import 'package:marine_watch/utils/bitmap_utils.dart';
 import 'package:marine_watch/utils/widgets/bouncing_dot_loader.dart';
@@ -91,7 +91,7 @@ class _SightingsViewState extends State<SightingsView> {
           _buildMap(),
           if (_bloc.state is SightingsLoading) _buildLoader(),
           _buildFilter(context),
-          _ToggleSightingWidget(),
+          ToggleSightingWidget(),
         ],
       ),
     );
@@ -178,22 +178,5 @@ class _SightingsViewState extends State<SightingsView> {
     if (_bloc.markers?.isEmpty ?? false) {
       _bloc.markers = _prevMarkers;
     }
-  }
-}
-
-class _ToggleSightingWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final showCard =
-        context.select((ToggleSightingCubit c) => c.sighting != null);
-    return showCard
-        ? SafeArea(
-            child: SightingPreviewCard(
-              sighting: context.read<ToggleSightingCubit>().sighting,
-              onDismiss: () =>
-                  context.read<ToggleSightingCubit>().toggleSightingToNull(),
-            ),
-          )
-        : const SizedBox.shrink();
   }
 }
