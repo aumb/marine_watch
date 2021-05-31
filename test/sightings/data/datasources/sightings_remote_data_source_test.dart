@@ -81,32 +81,4 @@ void main() {
       },
     );
   });
-
-  group('getMoreSightings', () {
-    final tSightings = sightingsFromJson(fixture('sightings.json'));
-
-    test(
-      'should return a list of sighitngs when the response code is 200',
-      () async {
-        // arrange
-        setUpMockHttpClientSuccess();
-        // act
-        final result = await dataSource.getMoreSightings();
-        // assert
-        expect(result, equals(tSightings));
-      },
-    );
-
-    test(
-      'should throw a ServerException when the response code is an error code',
-      () async {
-        // arrange
-        setUpMockHttpClientFailure();
-        // act
-        final call = dataSource.getMoreSightings;
-        // assert
-        expect(call(), throwsA(const TypeMatcher<ServerException>()));
-      },
-    );
-  });
 }

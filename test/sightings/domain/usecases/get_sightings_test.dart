@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
+import 'package:marine_watch/features/sightings/domain/models/species.dart';
 import 'package:marine_watch/features/sightings/domain/repositories/sightings_repository.dart';
 import 'package:marine_watch/features/sightings/domain/usecases/get_sightings.dart';
 import 'package:marine_watch/utils/errors/exceptions.dart';
@@ -75,4 +76,23 @@ void main() {
       verifyNoMoreInteractions(mockSightingsRepository);
     },
   );
+
+  group('GetSightingsParams', () {
+    final tSighting = Sighting.defaultSighting;
+    test(('Should reutrn updated params with copyWith'), () {
+      final params = GetSightingsParams(
+        species: Species.atlanticWhiteSidedDolphin,
+        limit: 3,
+      );
+
+      final result = params.copyWith(species: params.species, limit: 4);
+
+      expect(
+          result,
+          equals(GetSightingsParams(
+            species: Species.atlanticWhiteSidedDolphin,
+            limit: 4,
+          )));
+    });
+  });
 }

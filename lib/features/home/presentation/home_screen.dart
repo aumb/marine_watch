@@ -10,26 +10,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      lazy: false,
       create: (context) => sl<HomeBloc>()..add(GetFavoriteSightingsEvent()),
       child: HomeView(),
     );
   }
 }
 
-class HomeView extends StatefulWidget {
-  @override
-  _HomeViewState createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  int index = 0;
-
+class HomeView extends StatelessWidget {
   final _bottomNavigationItems = [
     SightingsScreen(),
     FavoritesScreen(),
@@ -37,19 +24,20 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    context.select((HomeBloc c) => c.state);
     return Scaffold(
-      bottomNavigationBar: _buildBottomNavigationBar(),
-      body: _bottomNavigationItems[index],
+      bottomNavigationBar: _buildBottomNavigationBar(context),
+      body: _bottomNavigationItems[context.read<HomeBloc>().index],
     );
   }
 
-  CustomBottomNavigationBar _buildBottomNavigationBar() {
+  CustomBottomNavigationBar _buildBottomNavigationBar(BuildContext context) {
     return CustomBottomNavigationBar(
-      currentIndex: index,
+      currentIndex: context.read<HomeBloc>().index,
       onTap: (index) {
-        setState(() {
-          this.index = index;
-        });
+        context.read<HomeBloc>().add(
+              ChangeTabBarIndexEvent(index: index),
+            );
       },
     );
   }

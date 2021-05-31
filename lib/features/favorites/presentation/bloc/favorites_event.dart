@@ -4,7 +4,7 @@ abstract class FavoritesEvent extends Equatable {
   const FavoritesEvent();
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 class GetCachedSightingsEvent extends FavoritesEvent {}
@@ -15,7 +15,7 @@ class CacheSightingEvent extends FavoritesEvent {
   final Sighting sighting;
 
   @override
-  List<Object?> get props => [sighting];
+  List<Object> get props => [sighting];
 }
 
 class DeleteCachedSightingEvent extends FavoritesEvent {
@@ -24,5 +24,5 @@ class DeleteCachedSightingEvent extends FavoritesEvent {
   final Sighting sighting;
 
   @override
-  List<Object?> get props => [sighting];
+  List<Object> get props => [sighting];
 }

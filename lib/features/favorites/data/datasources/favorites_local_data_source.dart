@@ -88,12 +88,8 @@ class FavoritesLocalDataSourceImpl implements FavoritesLocalDataSource {
 
   @override
   List<Sighting?> getCachedSightings() {
-    try {
-      final cachedSightings = [...this.cachedSightings];
-      final parsedSightings = sightingsFromStringList(cachedSightings);
-      return parsedSightings;
-    } catch (e) {
-      throw CacheException.handleException(error: e);
-    }
+    final cachedSightings = [...this.cachedSightings];
+    final parsedSightings = sightingsFromStringList(cachedSightings);
+    return parsedSightings;
   }
 }

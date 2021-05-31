@@ -20,7 +20,6 @@ import 'package:marine_watch/features/sighting/presentation/cubit/toggle_sightin
 import 'package:marine_watch/features/sightings/data/datasources/sightings_remote_data_source.dart';
 import 'package:marine_watch/features/sightings/data/repositories/sightings_repository_impl.dart';
 import 'package:marine_watch/features/sightings/domain/repositories/sightings_repository.dart';
-import 'package:marine_watch/features/sightings/domain/usecases/get_more_sightings.dart';
 import 'package:marine_watch/features/sightings/domain/usecases/get_sightings.dart';
 import 'package:marine_watch/features/sightings/presentation/bloc/sightings_bloc.dart';
 import 'package:marine_watch/utils/api.dart';
@@ -86,11 +85,6 @@ Future<void> init({bool isTesting = false}) async {
     )
     ..registerLazySingleton(
       () => GetSightings(
-        repository: sl(),
-      ),
-    )
-    ..registerLazySingleton(
-      () => GetMoreSightings(
         repository: sl(),
       ),
     )

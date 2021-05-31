@@ -18,3 +18,9 @@ class ShowErrorEvent extends HomeEvent {
   @override
   List<Object?> get props => [message, props];
 }
+
+class ChangeTabBarIndexEvent extends HomeEvent {
+  ChangeTabBarIndexEvent({required this.index});
+
+  final int index;
+}

@@ -2,10 +2,12 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:marine_watch/features/sightings/domain/models/species.dart';
 import 'package:marine_watch/features/sightings/presentation/bloc/sightings_bloc.dart';
 import 'package:marine_watch/features/sightings/presentation/screens/sightings_filter_screen.dart';
 import 'package:marine_watch/features/sightings/presentation/widgets/filter_widget.dart';
 import 'package:marine_watch/injection_container.dart';
+import 'package:marine_watch/utils/color_utils.dart';
 import 'package:mocktail/mocktail.dart';
 import '../../../helpers/helpers.dart';
 
@@ -50,7 +52,7 @@ void main() {
     );
   }
 
-  group('SightingsScreen', () {
+  group('SightingsFilterScreen', () {
     testWidgets('renders SightingsFilterScreen when FilterWidget is tapped',
         (tester) async {
       const filterButtonKey = Key(

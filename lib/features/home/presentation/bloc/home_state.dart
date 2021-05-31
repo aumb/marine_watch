@@ -21,7 +21,4 @@ class HomeError extends HomeState {
 
   final String message;
   final int? code;
-
-  @override
-  List<Object?> get props => [message, code];
 }

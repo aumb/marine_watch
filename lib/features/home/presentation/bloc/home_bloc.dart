@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:marine_watch/features/favorites/domain/repositories/favorites_repository.dart';
 import 'package:marine_watch/features/favorites/presentation/bloc/favorites_bloc.dart';
-import 'package:marine_watch/injection_container.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -18,6 +16,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   final FavoritesBloc favoritesBloc;
   late StreamSubscription favoritesBlocSubscription;
+
+  int index = 0;
 
   @override
   Future<void> close() {
@@ -34,6 +34,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } else if (event is ShowErrorEvent) {
       //TODO: listen to error event and show snackbar
       yield HomeError(message: event.message, code: event.code);
+    } else if (event is ChangeTabBarIndexEvent) {
+      yield HomeLoading();
+      index = event.index;
+      yield HomeLoaded();
     }
   }
 
@@ -41,8 +45,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     favoritesBlocSubscription = favoritesBloc.stream.listen((state) {
       if (state is FavoritesError) {
         add(ShowErrorEvent(message: state.message, code: state.code));
-      } else if (state is FavoritesLoaded) {
-        print(sl<FavoritesRepository>().favoriteSightings);
       }
     });
   }

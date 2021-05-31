@@ -13,7 +13,7 @@ import 'package:pedantic/pedantic.dart';
 class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<OnboardingCubit>(
       create: (context) => sl<OnboardingCubit>(),
       child: OnboardingView(),
     );

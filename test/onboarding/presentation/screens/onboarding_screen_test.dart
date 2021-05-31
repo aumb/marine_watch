@@ -17,6 +17,17 @@ class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 class OnboardingStateFake extends Fake implements OnboardingState {}
 
 void main() {
+  late OnboardingCubit onboardingCubit;
+  late MockNavigatorObserver navigatorObserver;
+
+  setUp(() async {
+    await init(isTesting: true);
+    registerFallbackValue<OnboardingState>(OnboardingStateFake());
+    onboardingCubit = MockOnboardingCubit();
+    navigatorObserver = MockNavigatorObserver();
+  });
+
+  tearDown(sl.reset);
   group('OnboardingScreen', () {
     testWidgets('renders OnboardingView', (tester) async {
       await tester.pumpApp(OnboardingScreen());
@@ -28,18 +39,6 @@ void main() {
     const skipButtonKey = Key(
       'onboardingView_skip_button',
     );
-
-    late OnboardingCubit onboardingCubit;
-    late MockNavigatorObserver navigatorObserver;
-
-    setUp(() async {
-      await init(isTesting: true);
-      registerFallbackValue<OnboardingState>(OnboardingStateFake());
-      onboardingCubit = MockOnboardingCubit();
-      navigatorObserver = MockNavigatorObserver();
-    });
-
-    tearDown(sl.reset);
 
     testWidgets('calls cacheIsFreshInstall when skip button is tapped',
         (tester) async {

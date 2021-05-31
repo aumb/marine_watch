@@ -47,6 +47,20 @@ void main() {
         expect(call(), throwsA(const TypeMatcher<CacheException>()));
       },
     );
+
+    test(
+      'should throw a [CacheException] if caching returns false',
+      () async {
+        final error = CacheException.defaultError;
+        // arrange
+        when(() => mockSharedPreferences.setBool(any(), any()))
+            .thenAnswer((invocation) async => false);
+        // act
+        final call = dataSource.cacheIsFreshInstall;
+        // assert
+        expect(call(), throwsA(const TypeMatcher<CacheException>()));
+      },
+    );
   });
 
   group('getCachedIsFreshInstall', () {

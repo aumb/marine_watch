@@ -14,14 +14,4 @@ abstract class SightingsRepository {
     CustomLatLng? near,
     int? radius,
   });
-
-  Future<Either<Failure, List<Sighting?>?>> getMoreSightings({
-    Species? species,
-    int? limit,
-    int? page,
-    DateTime? since,
-    DateTime? until,
-    CustomLatLng? near,
-    int? radius,
-  });
 }

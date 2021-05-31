@@ -3,13 +3,14 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:marine_watch/features/sightings/domain/models/species.dart';
 
-List<Sighting?> sightingsFromJson(String str) =>
-    Sighting.fromJsonList(json.decode(str));
+List<Sighting?> sightingsFromJson(String? str) =>
+    Sighting.fromJsonList(str != null ? json.decode(str) : null);
 
 List<Sighting?> sightingsFromStringList(List<String> str) =>
     Sighting.fromStringList(str);
 
-Sighting sightingFromJson(String str) => Sighting.fromJson(json.decode(str));
+Sighting sightingFromJson(String? str) =>
+    Sighting.fromJson(str != null ? json.decode(str) : null);
 
 String sightingToJson(Sighting? data) => json.encode(data?.toJson());
 

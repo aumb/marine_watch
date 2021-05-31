@@ -91,9 +91,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   }
 
   FavoritesState _hasFavorites(List<Sighting?>? sightings) {
-    final _sightings = sightings ?? [];
-
-    if (_sightings.isEmpty) {
+    if (sightings?.isEmpty ?? true) {
       return FavoritesEmpty();
     } else {
       return FavoritesLoaded();

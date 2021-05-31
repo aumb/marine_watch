@@ -127,6 +127,9 @@ class _FavoriteButtonState extends State<FavoriteButton>
     _colorAnimation = (_isFavorite == true)
         ? _selectedColorAnimation
         : _deSelectedColorAnimation;
+    _colorAnimation.addListener(() {
+      print(_colorAnimation.value);
+    });
     _sizeAnimation = TweenSequence(
       <TweenSequenceItem<double>>[
         TweenSequenceItem<double>(

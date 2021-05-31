@@ -31,6 +31,7 @@ class Species extends Enum {
   static const unknown = Species._internal('unknown');
   static const none = Species._internal('');
 
+  // coverage:ignore-start
   String get image {
     if (value == orca.value) {
       return ImageUtils.orca;
@@ -64,6 +65,7 @@ class Species extends Enum {
       return '';
     }
   }
+  // coverage:ignore-end
 
   static const List<Species> values = [
     orca,

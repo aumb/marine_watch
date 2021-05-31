@@ -38,23 +38,23 @@ class _FavoritesViewState extends State<FavoritesView> {
 
   Widget _buildBodyAccordingToState() {
     if (_bloc.state is FavoritesEmpty) {
-      return const _EmptyState();
+      return EmptyState();
     } else if (_bloc.state is FavoritesLoading) {
-      return const _LoadingState();
+      return LoadingState();
     } else if (_bloc.state is FavoritesError) {
-      return _ErrorState(onRetry: () {
+      return ErrorState(onRetry: () {
         _bloc.add(GetCachedSightingsEvent());
       });
     } else if (_bloc.state is FavoritesLoaded) {
-      return _LoadedState(context: context, bloc: _bloc);
+      return LoadedState(context: context, bloc: _bloc);
     } else {
-      return Container();
+      return const SizedBox.shrink();
     }
   }
 }
 
-class _LoadedState extends StatelessWidget {
-  const _LoadedState({
+class LoadedState extends StatelessWidget {
+  const LoadedState({
     Key? key,
     required this.context,
     required FavoritesBloc bloc,
@@ -106,11 +106,10 @@ class _LoadedState extends StatelessWidget {
   }
 }
 
-class _ErrorState extends StatelessWidget {
-  const _ErrorState({
-    Key? key,
+class ErrorState extends StatelessWidget {
+  const ErrorState({
     required this.onRetry,
-  }) : super(key: key);
+  });
 
   final Function() onRetry;
 
@@ -126,6 +125,7 @@ class _ErrorState extends StatelessWidget {
             Text(context.l10n.genericError),
             const SizedBox(height: 16),
             CustomElevatedButton(
+              key: const ValueKey('favorites_retry_button'),
               onPressed: onRetry,
               label: context.l10n.retry,
             ),
@@ -136,11 +136,7 @@ class _ErrorState extends StatelessWidget {
   }
 }
 
-class _LoadingState extends StatelessWidget {
-  const _LoadingState({
-    Key? key,
-  }) : super(key: key);
-
+class LoadingState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
@@ -149,11 +145,7 @@ class _LoadingState extends StatelessWidget {
   }
 }
 
-class _EmptyState extends StatelessWidget {
-  const _EmptyState({
-    Key? key,
-  }) : super(key: key);
-
+class EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;

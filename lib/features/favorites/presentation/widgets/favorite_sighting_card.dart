@@ -9,31 +9,40 @@ import 'package:marine_watch/utils/string_utils.dart';
 
 import '../../../../utils/widgets/custom_outlined_button.dart';
 
-class FavoriteSightingCard extends StatefulWidget {
+class FavoriteSightingCard extends StatelessWidget {
   FavoriteSightingCard({
     required this.sighting,
   });
 
   final Sighting? sighting;
-
   @override
-  _FavoriteSightingCardState createState() => _FavoriteSightingCardState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => sl<SightingBloc>(
+        param1: sighting,
+      ),
+      child: FavoriteSightingCardView(),
+    );
+  }
 }
 
-class _FavoriteSightingCardState extends State<FavoriteSightingCard>
+class FavoriteSightingCardView extends StatefulWidget {
+  @override
+  _FavoriteSightingCardViewState createState() =>
+      _FavoriteSightingCardViewState();
+}
+
+class _FavoriteSightingCardViewState extends State<FavoriteSightingCardView>
     with SingleTickerProviderStateMixin {
-  late SightingBloc _bloc;
+  SightingBloc get _bloc => context.read<SightingBloc>();
   late AnimationController _animationController;
   late Animation<double> _animation;
 
-  String get _image => widget.sighting?.species?.image ?? '';
+  String get _image => _bloc.sighting?.species?.image ?? '';
 
   @override
   void initState() {
     super.initState();
-    _bloc = sl<SightingBloc>(
-      param1: widget.sighting,
-    );
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 500));
     _animation = Tween<double>(begin: -1, end: 0).animate(
@@ -48,7 +57,6 @@ class _FavoriteSightingCardState extends State<FavoriteSightingCard>
 
   @override
   void dispose() {
-    _bloc.close();
     _animationController.dispose();
     super.dispose();
   }
@@ -81,7 +89,7 @@ class _FavoriteSightingCardState extends State<FavoriteSightingCard>
               ? DecorationImage(
                   colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(0.3), BlendMode.srcOver),
-                  image: AssetImage(widget.sighting?.species?.image ?? ''),
+                  image: AssetImage(_bloc.sighting?.species?.image ?? ''),
                   fit: BoxFit.cover,
                 )
               : null,
@@ -95,13 +103,13 @@ class _FavoriteSightingCardState extends State<FavoriteSightingCard>
               children: <Widget>[
                 Text(
                   StringUtils.capitalizeFirstofEach(
-                      widget.sighting?.species?.value ?? ''),
+                      _bloc.sighting?.species?.value ?? ''),
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  widget.sighting?.description != null
-                      ? '${widget.sighting?.description}\n'
+                  _bloc.sighting?.description != null
+                      ? '${_bloc.sighting?.description}\n'
                       : '',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
@@ -123,6 +131,7 @@ class _FavoriteSightingCardState extends State<FavoriteSightingCard>
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FavoriteButton(
+              key: const Key('favorite_button_key'),
               valueChanged: (value) {
                 _bloc.add(ToggleFavoriteSightingEvent());
               },

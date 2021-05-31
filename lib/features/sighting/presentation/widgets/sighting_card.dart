@@ -9,46 +9,33 @@ import 'package:marine_watch/utils/string_utils.dart';
 
 import '../../../../utils/widgets/custom_outlined_button.dart';
 
-class SightingCard extends StatefulWidget {
+class SightingCard extends StatelessWidget {
   SightingCard({
-    required this.sighting,
+    this.sighting,
   });
 
   final Sighting? sighting;
-
-  @override
-  _SightingCardState createState() => _SightingCardState();
-}
-
-class _SightingCardState extends State<SightingCard> {
-  late SightingBloc _bloc;
-
-  String get _image => widget.sighting?.species?.image ?? '';
-
-  @override
-  void initState() {
-    super.initState();
-    _bloc = sl<SightingBloc>(
-      param1: widget.sighting,
-    );
-  }
-
-  @override
-  void dispose() {
-    _bloc.close();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
     return BlocProvider(
-      create: (contex) => _bloc,
-      child: _buildCard(_width),
+      create: (context) => sl<SightingBloc>(
+        param1: sighting,
+      ),
+      child: SightingCardView(),
     );
   }
+}
 
-  Card _buildCard(double _width) {
+class SightingCardView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    context.select((SightingBloc c) => c.state);
+    final _bloc = context.read<SightingBloc>();
+    final _width = MediaQuery.of(context).size.width;
+    return _buildCard(_width, context, _bloc);
+  }
+
+  Card _buildCard(double _width, BuildContext context, SightingBloc bloc) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       elevation: 20,
@@ -59,25 +46,25 @@ class _SightingCardState extends State<SightingCard> {
             padding: const EdgeInsets.all(16.0),
             child: Row(
               children: <Widget>[
-                _buildImage(_width, context),
+                _buildImage(_width, context, bloc.sighting),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Container(
                     child: Stack(
                       children: [
-                        _buildFavorite(),
+                        _buildFavorite(bloc),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Text(
                               StringUtils.capitalizeFirstofEach(
-                                  widget.sighting?.species?.value ?? ''),
+                                  bloc.sighting?.species?.value ?? ''),
                               style: Theme.of(context).textTheme.headline5,
                             ),
                             const SizedBox(height: 6),
                             Text(
-                              widget.sighting?.description ?? '',
+                              bloc.sighting?.description ?? '',
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
                             ),
@@ -97,7 +84,7 @@ class _SightingCardState extends State<SightingCard> {
     );
   }
 
-  BlocBuilder _buildFavorite() {
+  BlocBuilder _buildFavorite(SightingBloc bloc) {
     return BlocBuilder<SightingBloc, SightingState>(
       builder: (context, state) {
         return Row(
@@ -105,9 +92,9 @@ class _SightingCardState extends State<SightingCard> {
           children: [
             FavoriteButton(
               valueChanged: (value) {
-                _bloc.add(ToggleFavoriteSightingEvent());
+                bloc.add(ToggleFavoriteSightingEvent());
               },
-              isFavorite: _bloc.isFavorite,
+              isFavorite: bloc.isFavorite,
             ),
           ],
         );
@@ -125,7 +112,10 @@ class _SightingCardState extends State<SightingCard> {
     );
   }
 
-  Container _buildImage(double width, BuildContext context) {
+  Container _buildImage(
+      double width, BuildContext context, Sighting? sighting) {
+    final _image = sighting?.species?.image ?? '';
+
     return Container(
         width: width * 0.2,
         height: width * 0.2,
@@ -138,7 +128,7 @@ class _SightingCardState extends State<SightingCard> {
           shape: BoxShape.circle,
           image: _image.isNotEmpty
               ? DecorationImage(
-                  image: AssetImage(widget.sighting?.species?.image ?? ''),
+                  image: AssetImage(sighting?.species?.image ?? ''),
                   fit: BoxFit.cover,
                 )
               : null,

@@ -72,6 +72,20 @@ void main() {
     );
 
     test(
+      'should throw a [CacheException] if caching returns false',
+      () async {
+        final error = CacheException.defaultError;
+        // arrange
+        when(() => mockSharedPreferences.setStringList(any(), any()))
+            .thenAnswer((_) async => false);
+        // act
+        final call = dataSource.cacheSighting;
+        // assert
+        expect(call(tSighting), throwsA(const TypeMatcher<CacheException>()));
+      },
+    );
+
+    test(
       'should throw a [CacheException] if caching fails',
       () async {
         final error = CacheException.defaultError;
@@ -118,7 +132,7 @@ void main() {
 
   group('deleteCachedSighting', () {
     test(
-      'should return [Sighting] delete cache is successfull',
+      'should return [Sighting] if delete cache is successfull',
       () async {
         final tSightingsEncodedWithItemRemoved = [...tSightingListEncoded]
           ..removeAt(0);
@@ -148,28 +162,15 @@ void main() {
     );
 
     test(
-      'should return an empty list if getStringList fails',
+      'should throw a [CacheException] if the item could not be found',
       () async {
-        // arrange
-        when(() => mockSharedPreferences.getStringList(any())).thenReturn(null);
-        // act
-        final call = dataSource.getCachedSightings;
-        // assert
-        expect(call(), equals(<String>[]));
-      },
-    );
-
-    test(
-      'should throw a [CacheException] if caching fails',
-      () async {
-        final error = CacheException.defaultError;
         // arrange
         when(() => mockSharedPreferences.setStringList(any(), any()))
-            .thenThrow(error);
+            .thenAnswer((invocation) async => true);
         // act
-        final call = dataSource.cacheSighting;
+        final call = dataSource.deleteCachedSighting;
         // assert
-        expect(call(tSighting), throwsA(const TypeMatcher<CacheException>()));
+        expect(call(null), throwsA(const TypeMatcher<CacheException>()));
       },
     );
   });
