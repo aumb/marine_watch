@@ -37,6 +37,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } else if (event is ChangeTabBarIndexEvent) {
       yield HomeLoading();
       index = event.index;
+      await Future.delayed(const Duration(milliseconds: 100));
       yield HomeLoaded();
     }
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marine_watch/features/l10n/l10n.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   CustomBottomNavigationBar({
@@ -15,16 +16,21 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Theme.of(context).backgroundColor,
+      unselectedItemColor: Colors.blueGrey,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      selectedItemColor: Theme.of(context).accentColor,
       currentIndex: currentIndex,
       onTap: onTap,
       items: [
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.ac_unit),
-          label: 'Sightings',
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.map),
+          label: context.l10n.sightings,
         ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Favorites',
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.favorite),
+          label: context.l10n.favorites,
         ),
       ],
     );
