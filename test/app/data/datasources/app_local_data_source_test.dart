@@ -51,7 +51,6 @@ void main() {
     test(
       'should throw a [CacheException] if caching returns false',
       () async {
-        final error = CacheException.defaultError;
         // arrange
         when(() => mockSharedPreferences.setBool(any(), any()))
             .thenAnswer((invocation) async => false);

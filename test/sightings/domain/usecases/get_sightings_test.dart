@@ -78,7 +78,6 @@ void main() {
   );
 
   group('GetSightingsParams', () {
-    final tSighting = Sighting.defaultSighting;
     test(('Should reutrn updated params with copyWith'), () {
       final params = GetSightingsParams(
         species: Species.atlanticWhiteSidedDolphin,
