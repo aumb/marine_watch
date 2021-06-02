@@ -20,7 +20,7 @@ class BitmapManager {
     ]);
   }
 
-  //TODO: Markers are too slow to load sometimes, related to
+  //TODO: SVG Markers are too slow to load sometimes, related to
   // https://github.com/flutter/flutter/issues/41731
   Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(
       BuildContext context, String assetName) async {
