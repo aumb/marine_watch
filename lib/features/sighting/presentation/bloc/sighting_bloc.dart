@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:marine_watch/features/favorites/presentation/bloc/favorites_bloc.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
-import 'package:marine_watch/utils/url_launcher_utils.dart';
+import 'package:marine_watch/core/utils/url_launcher_utils.dart';
 
 part 'sighting_event.dart';
 part 'sighting_state.dart';

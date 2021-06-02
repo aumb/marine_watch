@@ -1,5 +1,5 @@
-import 'package:marine_watch/utils/enum.dart';
-import 'package:marine_watch/utils/image_utils.dart';
+import 'package:marine_watch/core/utils/enum.dart';
+import 'package:marine_watch/core/utils/image_utils.dart';
 
 class Species extends Enum {
   const Species._internal(String value) : super.internal(value);

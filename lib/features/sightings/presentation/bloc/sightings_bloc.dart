@@ -7,8 +7,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/sightings/domain/models/species.dart';
 import 'package:marine_watch/features/sightings/domain/usecases/get_sightings.dart';
-import 'package:marine_watch/utils/custom_lat_lng.dart';
-import 'package:marine_watch/utils/errors/failure.dart';
+import 'package:marine_watch/core/custom_lat_lng.dart';
+import 'package:marine_watch/core/errors/failure.dart';
 
 part 'sightings_event.dart';
 part 'sightings_state.dart';

@@ -8,8 +8,8 @@ import 'package:marine_watch/features/favorites/domain/usecases/cache_sighting.d
 import 'package:marine_watch/features/favorites/domain/usecases/delete_cahced_sighting.dart';
 import 'package:marine_watch/features/favorites/domain/usecases/get_cached_sightings.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
-import 'package:marine_watch/utils/errors/failure.dart';
-import 'package:marine_watch/utils/usecases.dart';
+import 'package:marine_watch/core/errors/failure.dart';
+import 'package:marine_watch/core/usecases.dart';
 
 part 'favorites_event.dart';
 part 'favorites_state.dart';

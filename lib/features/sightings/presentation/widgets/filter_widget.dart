@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:marine_watch/features/sightings/domain/usecases/get_sightings.dart';
 import 'package:marine_watch/features/sightings/presentation/bloc/sightings_bloc.dart';
 import 'package:marine_watch/features/sightings/presentation/screens/sightings_filter_screen.dart';
-import 'package:marine_watch/injection_container.dart';
+import 'package:marine_watch/core/injection_container.dart';
 
-import 'package:marine_watch/utils/color_utils.dart';
+import 'package:marine_watch/core/utils/color_utils.dart';
 import 'package:marine_watch/features/l10n/l10n.dart';
-import 'package:marine_watch/utils/nav/navgiation_manager.dart';
+import 'package:marine_watch/core/nav/navgiation_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FilterWidget extends StatefulWidget {

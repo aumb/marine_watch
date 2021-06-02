@@ -6,10 +6,10 @@ import 'package:marine_watch/features/sightings/presentation/bloc/sightings_bloc
 import 'package:marine_watch/features/sightings/presentation/widgets/filter_widget.dart';
 import 'package:marine_watch/features/sightings/presentation/widgets/map_widget.dart';
 import 'package:marine_watch/features/sightings/presentation/widgets/toggle_sighting_widget.dart';
-import 'package:marine_watch/injection_container.dart';
-import 'package:marine_watch/utils/bitmap_utils.dart';
-import 'package:marine_watch/utils/custom_lat_lng.dart';
-import 'package:marine_watch/utils/widgets/bouncing_dot_loader.dart';
+import 'package:marine_watch/core/injection_container.dart';
+import 'package:marine_watch/core/bitmap_manager.dart';
+import 'package:marine_watch/core/custom_lat_lng.dart';
+import 'package:marine_watch/widgets/bouncing_dot_loader.dart';
 import 'package:marine_watch/features/l10n/l10n.dart';
 
 class SightingsScreen extends StatefulWidget {

@@ -10,10 +10,10 @@ import 'dart:developer';
 
 import 'package:flutter/widgets.dart';
 import 'package:bloc/bloc.dart';
-import 'package:marine_watch/app/app.dart';
-import 'package:marine_watch/app/app_bloc_observer.dart';
-import 'package:marine_watch/injection_container.dart';
-import 'package:marine_watch/utils/nav/navgiation_manager.dart';
+import 'package:marine_watch/features/app/app.dart';
+import 'package:marine_watch/features/app/app_bloc_observer.dart';
+import 'package:marine_watch/core/injection_container.dart';
+import 'package:marine_watch/core/nav/navgiation_manager.dart';
 
 void main() {
   Bloc.observer = AppBlocObserver();

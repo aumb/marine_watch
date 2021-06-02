@@ -4,11 +4,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:marine_watch/features/sighting/presentation/bloc/sighting_bloc.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/sightings/presentation/widgets/map_widget.dart';
-import 'package:marine_watch/injection_container.dart';
-import 'package:marine_watch/utils/bitmap_utils.dart';
-import 'package:marine_watch/utils/date_utils.dart';
-import 'package:marine_watch/utils/string_utils.dart';
-import 'package:marine_watch/utils/widgets/custom_elevated_button.dart';
+import 'package:marine_watch/core/injection_container.dart';
+import 'package:marine_watch/core/bitmap_manager.dart';
+import 'package:marine_watch/core/utils/date_utils.dart';
+import 'package:marine_watch/core/utils/string_utils.dart';
+import 'package:marine_watch/widgets/custom_elevated_button.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:marine_watch/features/l10n/l10n.dart';
 

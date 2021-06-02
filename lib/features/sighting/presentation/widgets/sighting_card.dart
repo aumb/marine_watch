@@ -5,11 +5,11 @@ import 'package:marine_watch/features/sighting/presentation/bloc/sighting_bloc.d
 import 'package:marine_watch/features/sighting/presentation/screens/sighting_screen.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/l10n/l10n.dart';
-import 'package:marine_watch/injection_container.dart';
-import 'package:marine_watch/utils/nav/navgiation_manager.dart';
-import 'package:marine_watch/utils/string_utils.dart';
+import 'package:marine_watch/core/injection_container.dart';
+import 'package:marine_watch/core/nav/navgiation_manager.dart';
+import 'package:marine_watch/core/utils/string_utils.dart';
 
-import '../../../../utils/widgets/custom_outlined_button.dart';
+import '../../../../widgets/custom_outlined_button.dart';
 
 class SightingCard extends StatelessWidget {
   SightingCard({

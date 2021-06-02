@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
-import 'package:marine_watch/utils/const_utils.dart';
-import 'package:marine_watch/utils/errors/exceptions.dart';
+import 'package:marine_watch/core/utils/const_utils.dart';
+import 'package:marine_watch/core/errors/exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class FavoritesLocalDataSource {

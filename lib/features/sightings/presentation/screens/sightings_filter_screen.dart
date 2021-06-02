@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:marine_watch/features/sightings/domain/models/species.dart';
 import 'package:marine_watch/features/sightings/domain/usecases/get_sightings.dart';
 import 'package:marine_watch/features/sightings/presentation/bloc/sightings_bloc.dart';
-import 'package:marine_watch/injection_container.dart';
-import 'package:marine_watch/utils/color_utils.dart';
-import 'package:marine_watch/utils/nav/navgiation_manager.dart';
-import 'package:marine_watch/utils/string_utils.dart';
-import 'package:marine_watch/utils/widgets/custom_elevated_button.dart';
+import 'package:marine_watch/core/injection_container.dart';
+import 'package:marine_watch/core/utils/color_utils.dart';
+import 'package:marine_watch/core/nav/navgiation_manager.dart';
+import 'package:marine_watch/core/utils/string_utils.dart';
+import 'package:marine_watch/widgets/custom_elevated_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marine_watch/features/l10n/l10n.dart';
 

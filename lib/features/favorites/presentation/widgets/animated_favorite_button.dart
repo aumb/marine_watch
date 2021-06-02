@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:marine_watch/utils/color_utils.dart';
+import 'package:marine_watch/core/utils/color_utils.dart';
 
 // coverage:ignore-file
 class AnimatedFavoriteButton extends StatefulWidget {

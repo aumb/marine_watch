@@ -4,10 +4,10 @@ import 'package:marine_watch/features/favorites/presentation/bloc/favorites_bloc
 import 'package:marine_watch/features/favorites/presentation/widgets/favorite_sighting_card.dart';
 import 'package:marine_watch/features/sighting/presentation/widgets/sighting_card.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
-import 'package:marine_watch/injection_container.dart';
+import 'package:marine_watch/core/injection_container.dart';
 import 'package:marine_watch/features/l10n/l10n.dart';
-import 'package:marine_watch/utils/widgets/animated_arrows_widget.dart';
-import 'package:marine_watch/utils/widgets/custom_elevated_button.dart';
+import 'package:marine_watch/widgets/animated_arrows_widget.dart';
+import 'package:marine_watch/widgets/custom_elevated_button.dart';
 
 class FavoritesScreen extends StatelessWidget {
   @override

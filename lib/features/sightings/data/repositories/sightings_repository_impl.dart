@@ -3,9 +3,9 @@ import 'package:marine_watch/features/sightings/data/datasources/sightings_remot
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/sightings/domain/models/species.dart';
 import 'package:marine_watch/features/sightings/domain/repositories/sightings_repository.dart';
-import 'package:marine_watch/utils/custom_lat_lng.dart';
-import 'package:marine_watch/utils/errors/exceptions.dart';
-import 'package:marine_watch/utils/errors/failure.dart';
+import 'package:marine_watch/core/custom_lat_lng.dart';
+import 'package:marine_watch/core/errors/exceptions.dart';
+import 'package:marine_watch/core/errors/failure.dart';
 
 class SightingsRepositoryImpl implements SightingsRepository {
   SightingsRepositoryImpl({

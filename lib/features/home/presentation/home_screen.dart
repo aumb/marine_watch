@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marine_watch/features/favorites/presentation/screens/favorites_screen.dart';
 import 'package:marine_watch/features/home/presentation/bloc/home_bloc.dart';
 import 'package:marine_watch/features/sightings/presentation/screens/sightings_screen.dart';
-import 'package:marine_watch/injection_container.dart';
-import 'package:marine_watch/utils/widgets/bottom_navigation_bar.dart';
+import 'package:marine_watch/core/injection_container.dart';
+import 'package:marine_watch/widgets/bottom_navigation_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   @override

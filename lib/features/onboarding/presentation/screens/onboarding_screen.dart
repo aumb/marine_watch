@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marine_watch/features/home/presentation/home_screen.dart';
-import 'package:marine_watch/injection_container.dart';
+import 'package:marine_watch/core/injection_container.dart';
 import 'package:marine_watch/features/onboarding/presentation/cubit/onboarding_cubit.dart';
-import 'package:marine_watch/utils/color_utils.dart';
-import 'package:marine_watch/utils/image_utils.dart';
+import 'package:marine_watch/core/utils/color_utils.dart';
+import 'package:marine_watch/core/utils/image_utils.dart';
 import 'package:marine_watch/features/l10n/l10n.dart';
-import 'package:marine_watch/utils/nav/navgiation_manager.dart';
-import 'package:marine_watch/utils/widgets/custom_outlined_button.dart';
+import 'package:marine_watch/core/nav/navgiation_manager.dart';
+import 'package:marine_watch/widgets/custom_outlined_button.dart';
 import 'package:pedantic/pedantic.dart';
 
 class OnboardingScreen extends StatelessWidget {

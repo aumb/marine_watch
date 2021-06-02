@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:marine_watch/features/favorites/data/datasources/favorites_local_data_source.dart';
 import 'package:marine_watch/features/favorites/domain/repositories/favorites_repository.dart';
-import 'package:marine_watch/utils/errors/exceptions.dart';
-import 'package:marine_watch/utils/errors/failure.dart';
+import 'package:marine_watch/core/errors/exceptions.dart';
+import 'package:marine_watch/core/errors/failure.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 
 class FavoritesRepositoryImpl implements FavoritesRepository {

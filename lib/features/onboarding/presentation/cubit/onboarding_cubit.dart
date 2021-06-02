@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:marine_watch/app/domain/usecases/cache_is_fresh_install.dart';
-import 'package:marine_watch/utils/errors/failure.dart';
-import 'package:marine_watch/utils/nav/navgiation_manager.dart';
-import 'package:marine_watch/utils/usecases.dart';
+import 'package:marine_watch/features/app/domain/usecases/cache_is_fresh_install.dart';
+import 'package:marine_watch/core/errors/failure.dart';
+import 'package:marine_watch/core/nav/navgiation_manager.dart';
+import 'package:marine_watch/core/usecases.dart';
 
 part 'onboarding_state.dart';
 
