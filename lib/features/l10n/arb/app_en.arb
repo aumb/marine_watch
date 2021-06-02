@@ -55,5 +55,29 @@
     "sightings": "Sightings",
     "@sightings": {
         "description": "Sightings text"
+    },
+    "emptySightings": "Could not find any sightings",
+    "@emptySightings": {
+        "description": "Text to show on SightingsEmpty state"
+    },
+    "sightedOn": "sighted on",
+    "@sightedOn": {
+        "description": "sighted on text"
+    },
+    "track": "Track",
+    "@track": {
+        "description": "track text"
+    },
+    "quantity": "quantity",
+    "@quantity": {
+        "description": "quantity text"
+    },
+    "unknown": "Unknown",
+    "@unknown": {
+        "description": "unknown text"
+    },
+    "description": "Description",
+    "@description": {
+        "description": "description text"
     }
 }

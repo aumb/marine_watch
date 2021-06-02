@@ -81,16 +81,14 @@ void main() {
     test(('Should reutrn updated params with copyWith'), () {
       final params = GetSightingsParams(
         species: Species.atlanticWhiteSidedDolphin,
-        limit: 3,
       );
 
-      final result = params.copyWith(species: params.species, limit: 4);
+      final result = params.copyWith(species: params.species);
 
       expect(
           result,
           equals(GetSightingsParams(
             species: Species.atlanticWhiteSidedDolphin,
-            limit: 4,
           )));
     });
   });

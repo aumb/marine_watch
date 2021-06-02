@@ -58,7 +58,11 @@ class SightingsBloc extends Bloc<SightingsEvent, SightingsState> {
       return SightingsError(message: l.message, code: l.code);
     }, (r) {
       sightings = r;
-      return SightingsLoaded();
+      if (r?.isNotEmpty ?? false) {
+        return SightingsLoaded();
+      } else {
+        return SightingsEmpty();
+      }
     });
   }
 }

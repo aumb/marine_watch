@@ -32,7 +32,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (event is GetFavoriteSightingsEvent) {
       favoritesBloc.add(GetCachedSightingsEvent());
     } else if (event is ShowErrorEvent) {
-      //TODO: listen to error event and show snackbar
       yield HomeError(message: event.message, code: event.code);
     } else if (event is ChangeTabBarIndexEvent) {
       yield HomeLoading();

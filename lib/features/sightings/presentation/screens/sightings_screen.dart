@@ -10,6 +10,7 @@ import 'package:marine_watch/injection_container.dart';
 import 'package:marine_watch/utils/bitmap_utils.dart';
 import 'package:marine_watch/utils/custom_lat_lng.dart';
 import 'package:marine_watch/utils/widgets/bouncing_dot_loader.dart';
+import 'package:marine_watch/features/l10n/l10n.dart';
 
 class SightingsScreen extends StatefulWidget {
   @override
@@ -47,12 +48,28 @@ class _SightingsScreenState extends State<SightingsScreen> {
         ),
       ],
       child: BlocConsumer<SightingsBloc, SightingsState>(
-        listener: (context, state) {},
+        listener: _handleListenerStates,
         builder: (context, state) {
           return SightingsView();
         },
       ),
     );
+  }
+
+  void _handleListenerStates(BuildContext context, SightingsState state) {
+    if (state is SightingsError) {
+      final snackBar = SnackBar(
+          content: Text(context.l10n.genericError),
+          behavior: SnackBarBehavior.floating);
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else if (state is SightingsEmpty) {
+      final snackBar = SnackBar(
+          content: Text(context.l10n.emptySightings),
+          behavior: SnackBarBehavior.floating);
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }
 
@@ -76,6 +93,12 @@ class _SightingsViewState extends State<SightingsView> {
       pin = _bitmapManager.pngMapPin!;
     }
     return pin;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _cameraPosition = const CameraPosition(target: LatLng(47.78, -122.44));
   }
 
   @override

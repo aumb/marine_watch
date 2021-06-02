@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:marine_watch/features/favorites/presentation/bloc/favorites_bloc.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
+import 'package:marine_watch/utils/url_launcher_utils.dart';
 
 part 'sighting_event.dart';
 part 'sighting_state.dart';
@@ -12,6 +13,7 @@ class SightingBloc extends Bloc<SightingEvent, SightingState> {
   SightingBloc({
     required this.favoriteBloc,
     required this.sighting,
+    required this.urlLauncherUtils,
   }) : super(SightingInitial()) {
     _favoriteBlocSubcription = favoriteBloc.stream.listen((state) {
       if (state is FavoritesError) {
@@ -23,6 +25,7 @@ class SightingBloc extends Bloc<SightingEvent, SightingState> {
 
   final Sighting? sighting;
   final FavoritesBloc favoriteBloc;
+  final UrlLauncherUtils urlLauncherUtils;
 
   late StreamSubscription _favoriteBlocSubcription;
 
@@ -63,6 +66,13 @@ class SightingBloc extends Bloc<SightingEvent, SightingState> {
         yield SightingFavorite();
       } else {
         yield SightingUnfavorite();
+      }
+    } else if (event is TrackButtonPressedEvent) {
+      if (sighting?.longitude != null && sighting?.latitude != null) {
+        await urlLauncherUtils.launchCoordinates(
+          sighting!.longitude!.toDouble(),
+          sighting!.latitude!.toDouble(),
+        );
       }
     }
   }

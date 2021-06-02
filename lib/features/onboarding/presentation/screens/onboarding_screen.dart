@@ -14,6 +14,7 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<OnboardingCubit>(
+      lazy: false,
       create: (context) => sl<OnboardingCubit>(),
       child: OnboardingView(),
     );
@@ -70,7 +71,6 @@ class OnboardingView extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 _buildSkipButton(context, l10n),
-                // BouncingDotLoader(),
               ],
             ),
           ),

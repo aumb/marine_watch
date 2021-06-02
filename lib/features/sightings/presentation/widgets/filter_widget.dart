@@ -37,7 +37,6 @@ class _FilterWidgetState extends State<FilterWidget> {
           ),
           isFullScreenDialog: true,
         );
-        // context.read<SightingsBloc>().selectedSighting = null;
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

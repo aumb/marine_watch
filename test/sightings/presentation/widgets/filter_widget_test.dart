@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:marine_watch/features/sightings/domain/models/species.dart';
 import 'package:marine_watch/features/sightings/presentation/bloc/sightings_bloc.dart';
 import 'package:marine_watch/features/sightings/presentation/screens/sightings_filter_screen.dart';
 import 'package:marine_watch/features/sightings/presentation/widgets/filter_widget.dart';
@@ -49,6 +50,17 @@ void main() {
       navObservers: [navigatorObserver],
     );
   }
+
+  group('FilterWidget', () {
+    testWidgets('renders AccentColor FilterWidget when sighting is not null',
+        (tester) async {
+      when(() => sightingsBloc.species)
+          .thenReturn(Species.atlanticWhiteSidedDolphin);
+      await _setupFilterWidget(tester);
+      await tester.pumpAndSettle();
+      expect(find.byType(Container), findsOneWidget);
+    });
+  });
 
   group('SightingsFilterScreen', () {
     testWidgets('renders SightingsFilterScreen when FilterWidget is tapped',

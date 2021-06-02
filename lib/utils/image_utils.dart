@@ -1,3 +1,4 @@
+// coverage:ignore-file
 class ImageUtils {
   static final String _base = 'assets';
   static final String _images = '$_base/images';

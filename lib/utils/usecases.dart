@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:marine_watch/utils/errors/failure.dart';

@@ -13,6 +13,8 @@ class SightingsLoading extends SightingsState {}
 
 class SightingsLoaded extends SightingsState {}
 
+class SightingsEmpty extends SightingsState {}
+
 class SightingsError extends SightingsState {
   SightingsError({
     required this.message,

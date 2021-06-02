@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:marine_watch/utils/color_utils.dart';
 
-class FavoriteButton extends StatefulWidget {
-  FavoriteButton({
+// coverage:ignore-file
+class AnimatedFavoriteButton extends StatefulWidget {
+  AnimatedFavoriteButton({
     double? iconSize,
     Color? iconDisabledColor,
     bool? isFavorite,
@@ -20,10 +22,10 @@ class FavoriteButton extends StatefulWidget {
   final Color? _iconDisabledColor;
 
   @override
-  _FavoriteButtonState createState() => _FavoriteButtonState();
+  _AnimatedFavoriteButtonState createState() => _AnimatedFavoriteButtonState();
 }
 
-class _FavoriteButtonState extends State<FavoriteButton>
+class _AnimatedFavoriteButtonState extends State<AnimatedFavoriteButton>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _sizeAnimation;
@@ -42,6 +44,8 @@ class _FavoriteButtonState extends State<FavoriteButton>
   bool _isFavorite = false;
   bool _isAnimationCompleted = false;
 
+  Color? _iconColor;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -52,7 +56,6 @@ class _FavoriteButtonState extends State<FavoriteButton>
   void initState() {
     super.initState();
 
-    _isFavorite = widget._isFavorite;
     _maxIconSize = (widget._iconSize < 20.0)
         ? 20.0
         : (widget._iconSize > 100.0)
@@ -69,6 +72,10 @@ class _FavoriteButtonState extends State<FavoriteButton>
     _curve = CurvedAnimation(curve: Curves.slowMiddle, parent: _controller);
 
     _controller.addStatusListener(listener);
+    _colorAnimation = ColorTween().animate(_curve);
+    _colorAnimation.addListener(() {
+      _iconColor = _colorAnimation.value;
+    });
   }
 
   @override
@@ -94,7 +101,7 @@ class _FavoriteButtonState extends State<FavoriteButton>
           },
           child: Icon(
             (Icons.favorite),
-            color: _colorAnimation.value,
+            color: _iconColor,
             size: _sizeAnimation.value,
           ),
         );
@@ -115,21 +122,21 @@ class _FavoriteButtonState extends State<FavoriteButton>
   }
 
   void setupColorAnimations() {
+    _isFavorite = widget._isFavorite;
+    _iconColor = _isFavorite ? Theme.of(context).accentColor : Colors.grey[400];
     _selectedColorAnimation = ColorTween(
-      begin: Theme.of(context).accentColor,
+      begin: ColorUtils.accentColor,
       end: widget._iconDisabledColor,
     ).animate(_curve);
     _deSelectedColorAnimation = ColorTween(
       begin: widget._iconDisabledColor,
-      end: Theme.of(context).accentColor,
+      end: ColorUtils.accentColor,
     ).animate(_curve);
 
     _colorAnimation = (_isFavorite == true)
         ? _selectedColorAnimation
         : _deSelectedColorAnimation;
-    _colorAnimation.addListener(() {
-      print(_colorAnimation.value);
-    });
+
     _sizeAnimation = TweenSequence(
       <TweenSequenceItem<double>>[
         TweenSequenceItem<double>(

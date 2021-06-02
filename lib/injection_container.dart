@@ -25,6 +25,7 @@ import 'package:marine_watch/features/sightings/presentation/bloc/sightings_bloc
 import 'package:marine_watch/utils/api.dart';
 import 'package:marine_watch/utils/bitmap_utils.dart';
 import 'package:marine_watch/utils/nav/navgiation_manager.dart';
+import 'package:marine_watch/utils/url_launcher_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/sightings/domain/models/sighting.dart';
@@ -46,15 +47,10 @@ Future<void> init({bool isTesting = false}) async {
           LogInterceptor(request: true),
         ]),
     )
+    ..registerFactory(() => UrlLauncherUtils())
     ..registerLazySingleton(() => sharedPreferences)
     ..registerLazySingleton(() => NavigationManager())
     ..registerLazySingleton(() => BitmapManager())
-    ..registerFactory(
-      () => OnboardingCubit(
-        cacheIsFreshInstall: sl(),
-        navigationManager: sl(),
-      ),
-    )
     ..registerLazySingleton(
       () => CacheIsFreshInstall(
         repository: sl(),
@@ -140,11 +136,18 @@ Future<void> init({bool isTesting = false}) async {
         _,
       ) =>
           SightingBloc(
+        urlLauncherUtils: sl(),
         favoriteBloc: sl(),
         sighting: sighting,
       ),
     )
     ..registerFactory(
       () => ToggleSightingCubit(),
+    )
+    ..registerFactory(
+      () => OnboardingCubit(
+        cacheIsFreshInstall: sl(),
+        navigationManager: sl(),
+      ),
     );
 }

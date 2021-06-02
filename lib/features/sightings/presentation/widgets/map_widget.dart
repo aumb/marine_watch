@@ -25,22 +25,27 @@ class MapWidget extends StatefulWidget {
   State<MapWidget> createState() => MapWidgetState();
 }
 
-class MapWidgetState extends State<MapWidget> {
+class MapWidgetState extends State<MapWidget>
+    with AutomaticKeepAliveClientMixin<MapWidget> {
   final Completer<GoogleMapController> _controller = Completer();
   late GoogleMapController mapController;
   late CameraPosition initalPosition;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
     initalPosition = CameraPosition(
       target: widget.latLng ?? const LatLng(47.78, -122.44),
-      zoom: 11,
+      zoom: 8,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: GoogleMap(
         onTap: widget.onTap,
@@ -50,6 +55,7 @@ class MapWidgetState extends State<MapWidget> {
         onCameraMoveStarted: widget.onCameraMoveStarted,
         zoomControlsEnabled: false,
         myLocationButtonEnabled: false,
+        mapToolbarEnabled: false,
         myLocationEnabled: false,
         initialCameraPosition: initalPosition,
         onMapCreated: (GoogleMapController controller) {
@@ -187,8 +193,3 @@ class MapWidgetState extends State<MapWidget> {
     }
   ]);
 }
-
-// Future<void> _goToTheLake() async {
-//   final controller = await _controller.future;
-//   await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-// }

@@ -5,21 +5,26 @@ import 'package:marine_watch/features/favorites/domain/usecases/cache_sighting.d
 import 'package:marine_watch/features/favorites/presentation/bloc/favorites_bloc.dart';
 import 'package:marine_watch/features/sighting/presentation/bloc/sighting_bloc.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
+import 'package:marine_watch/utils/url_launcher_utils.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../fixtures/fixture_reader.dart';
 
 class MockFavoritesBloc extends Mock implements FavoritesBloc {}
 
+class MockUrlLauncherUtils extends Mock implements UrlLauncherUtils {}
+
 class MockFavoritesBlocStream extends Mock implements Stream<FavoritesState> {}
 
 void main() {
   late MockFavoritesBloc mockFavoritesBloc;
+  late MockUrlLauncherUtils mockUrlLauncherUtils;
 
   final sighting = sightingFromJson(fixture('sighting.json'));
 
   setUp(() {
     mockFavoritesBloc = MockFavoritesBloc();
+    mockUrlLauncherUtils = MockUrlLauncherUtils();
     registerFallbackValue<CacheSightingParams>(
         CacheSightingParams(sighting: sighting));
   });
@@ -69,9 +74,10 @@ void main() {
       setupLoadedFavoriteState();
       expect(
           SightingBloc(
-            sighting: sighting,
-            favoriteBloc: mockFavoritesBloc,
-          ).state,
+                  sighting: sighting,
+                  favoriteBloc: mockFavoritesBloc,
+                  urlLauncherUtils: mockUrlLauncherUtils)
+              .state,
           equals(SightingInitial()));
     });
 
@@ -82,6 +88,7 @@ void main() {
           setupLoadedFavoriteState();
           return SightingBloc(
             sighting: sighting,
+            urlLauncherUtils: mockUrlLauncherUtils,
             favoriteBloc: mockFavoritesBloc,
           );
         },
@@ -98,6 +105,7 @@ void main() {
         build: () {
           setupErrorFavoriteState();
           return SightingBloc(
+            urlLauncherUtils: mockUrlLauncherUtils,
             sighting: sighting,
             favoriteBloc: mockFavoritesBloc,
           );
@@ -117,6 +125,7 @@ void main() {
         build: () {
           setupLoadedFavoriteStateUnFavorite();
           return SightingBloc(
+            urlLauncherUtils: mockUrlLauncherUtils,
             sighting: sighting,
             favoriteBloc: mockFavoritesBloc,
           );
@@ -134,6 +143,7 @@ void main() {
         build: () {
           setupErrorFavoriteStateUnFavorite();
           return SightingBloc(
+            urlLauncherUtils: mockUrlLauncherUtils,
             sighting: sighting,
             favoriteBloc: mockFavoritesBloc,
           );
@@ -144,6 +154,24 @@ void main() {
         },
         act: (bloc) => bloc.add(ToggleFavoriteSightingEvent()),
         expect: () => [SightingUnfavorite(), SightingFavorite()],
+      );
+    });
+
+    group('TrackButtonPressedEvent', () {
+      blocTest<SightingBloc, SightingState>(
+        'calls launchCoordinates and emits no state',
+        build: () {
+          setupLoadedFavoriteStateUnFavorite();
+          when(() =>
+                  mockUrlLauncherUtils.launchCoordinates(any(), any(), any()))
+              .thenAnswer((invocation) async => true);
+          return SightingBloc(
+            urlLauncherUtils: mockUrlLauncherUtils,
+            sighting: sighting,
+            favoriteBloc: mockFavoritesBloc,
+          );
+        },
+        act: (bloc) => bloc.add(TrackButtonPressedEvent()),
       );
     });
   });

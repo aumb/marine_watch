@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marine_watch/features/favorites/presentation/widgets/favorite_button.dart';
+import 'package:marine_watch/features/favorites/presentation/widgets/animated_favorite_button.dart';
 import 'package:marine_watch/features/sighting/presentation/bloc/sighting_bloc.dart';
+import 'package:marine_watch/features/sighting/presentation/screens/sighting_screen.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/l10n/l10n.dart';
 import 'package:marine_watch/injection_container.dart';
+import 'package:marine_watch/utils/nav/navgiation_manager.dart';
 import 'package:marine_watch/utils/string_utils.dart';
 
 import '../../../../utils/widgets/custom_outlined_button.dart';
@@ -130,7 +132,7 @@ class _FavoriteSightingCardViewState extends State<FavoriteSightingCardView>
         return Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            FavoriteButton(
+            AnimatedFavoriteButton(
               key: const Key('favorite_button_key'),
               valueChanged: (value) {
                 _bloc.add(ToggleFavoriteSightingEvent());
@@ -146,9 +148,16 @@ class _FavoriteSightingCardViewState extends State<FavoriteSightingCardView>
   CustomOutlinedButton _buildDetailsButton(AppLocalizations l10n) {
     return CustomOutlinedButton(
       key: const Key(
-        'sighting_details_button',
+        'sighting_details_button1',
       ),
-      onPressed: () {},
+      onPressed: () {
+        sl<NavigationManager>().navigateTo(
+          BlocProvider.value(
+            value: _bloc,
+            child: SightingScreen(),
+          ),
+        );
+      },
       label: l10n.details,
     );
   }

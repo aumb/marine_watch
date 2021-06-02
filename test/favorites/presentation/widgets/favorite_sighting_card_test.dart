@@ -2,9 +2,10 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:marine_watch/features/favorites/presentation/widgets/favorite_button.dart';
+import 'package:marine_watch/features/favorites/presentation/widgets/animated_favorite_button.dart';
 import 'package:marine_watch/features/favorites/presentation/widgets/favorite_sighting_card.dart';
 import 'package:marine_watch/features/sighting/presentation/bloc/sighting_bloc.dart';
+import 'package:marine_watch/features/sighting/presentation/screens/sighting_screen.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/sightings/domain/models/species.dart';
 import 'package:marine_watch/injection_container.dart';
@@ -16,11 +17,14 @@ class SightingStateFake extends Fake implements SightingState {}
 
 class SightingEventFake extends Fake implements SightingEvent {}
 
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
 class MockSightingBloc extends MockBloc<SightingEvent, SightingState>
     implements SightingBloc {}
 
 void main() {
   late SightingBloc sightingBloc;
+  late MockNavigatorObserver navigatorObserver;
   final sighting = Sighting(
     id: '1',
     species: Species.atlanticWhiteSidedDolphin,
@@ -39,6 +43,7 @@ void main() {
     registerFallbackValue<SightingState>(SightingStateFake());
     registerFallbackValue<SightingEvent>(SightingEventFake());
     sightingBloc = MockSightingBloc();
+    navigatorObserver = MockNavigatorObserver();
   });
 
   tearDown(() {
@@ -62,6 +67,7 @@ void main() {
         value: sightingBloc,
         child: FavoriteSightingCardView(),
       ),
+      navObservers: [navigatorObserver],
     );
   }
 
@@ -85,7 +91,7 @@ void main() {
       _setupSightingInitalSightingState();
       await _setupSightingCardViewWidget(tester);
       await tester.pumpAndSettle();
-      expect(find.byType(FavoriteButton), findsOneWidget);
+      expect(find.byType(AnimatedFavoriteButton), findsOneWidget);
     });
 
     testWidgets('renders DetialsButton', (tester) async {
@@ -104,6 +110,16 @@ void main() {
       await tester.tap(find.byKey(favoriteButtonKey));
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
       verify(() => sightingBloc.add(ToggleFavoriteSightingEvent()));
+    });
+
+    testWidgets('Navigates to SightingScreen when tapped', (tester) async {
+      final sightingDetailsButton = const Key('sighting_details_button1');
+      _setupSightingInitalSightingState();
+      await _setupSightingCardViewWidget(tester);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(sightingDetailsButton));
+      await tester.pumpAndSettle();
+      expect(find.byType(SightingScreen), findsOneWidget);
     });
   });
 }

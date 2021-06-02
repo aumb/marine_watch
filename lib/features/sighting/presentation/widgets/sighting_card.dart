@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marine_watch/features/favorites/presentation/widgets/favorite_button.dart';
+import 'package:marine_watch/features/favorites/presentation/widgets/animated_favorite_button.dart';
 import 'package:marine_watch/features/sighting/presentation/bloc/sighting_bloc.dart';
+import 'package:marine_watch/features/sighting/presentation/screens/sighting_screen.dart';
 import 'package:marine_watch/features/sightings/domain/models/sighting.dart';
 import 'package:marine_watch/features/l10n/l10n.dart';
 import 'package:marine_watch/injection_container.dart';
+import 'package:marine_watch/utils/nav/navgiation_manager.dart';
 import 'package:marine_watch/utils/string_utils.dart';
 
 import '../../../../utils/widgets/custom_outlined_button.dart';
@@ -69,7 +71,7 @@ class SightingCardView extends StatelessWidget {
                               maxLines: 2,
                             ),
                             const SizedBox(height: 2),
-                            _buildDetailsButton(context.l10n),
+                            _buildDetailsButton(context.l10n, bloc),
                           ],
                         ),
                       ],
@@ -90,7 +92,7 @@ class SightingCardView extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            FavoriteButton(
+            AnimatedFavoriteButton(
               valueChanged: (value) {
                 bloc.add(ToggleFavoriteSightingEvent());
               },
@@ -102,12 +104,20 @@ class SightingCardView extends StatelessWidget {
     );
   }
 
-  CustomOutlinedButton _buildDetailsButton(AppLocalizations l10n) {
+  CustomOutlinedButton _buildDetailsButton(
+      AppLocalizations l10n, SightingBloc bloc) {
     return CustomOutlinedButton(
       key: const Key(
         'sighting_details_button',
       ),
-      onPressed: () {},
+      onPressed: () {
+        sl<NavigationManager>().navigateTo(
+          BlocProvider.value(
+            value: bloc,
+            child: SightingScreen(),
+          ),
+        );
+      },
       label: l10n.details,
     );
   }

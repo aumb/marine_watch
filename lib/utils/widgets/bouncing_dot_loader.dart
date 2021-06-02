@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// coverage:ignore-file
 class BouncingDotLoader extends StatefulWidget {
   BouncingDotLoader({
     this.numberOfDots = 3,

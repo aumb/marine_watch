@@ -30,7 +30,10 @@ void main() {
   tearDown(sl.reset);
   group('OnboardingScreen', () {
     testWidgets('renders OnboardingView', (tester) async {
+      when(() => onboardingCubit.state).thenReturn(OnboardingLoaded());
+
       await tester.pumpApp(OnboardingScreen());
+      await tester.pumpAndSettle();
       expect(find.byType(OnboardingView), findsOneWidget);
     });
   });

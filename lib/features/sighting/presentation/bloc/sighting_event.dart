@@ -10,3 +10,5 @@ abstract class SightingEvent extends Equatable {
 class ToggleFavoriteSightingEvent extends SightingEvent {}
 
 class ToggleFavoriteSightingErrorEvent extends SightingEvent {}
+
+class TrackButtonPressedEvent extends SightingEvent {}
