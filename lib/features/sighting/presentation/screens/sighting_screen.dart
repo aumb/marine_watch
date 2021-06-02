@@ -125,26 +125,27 @@ class _SightingScreenState extends State<SightingScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 32.0),
       sliver: SliverToBoxAdapter(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 28),
-                Text(
-                  StringUtils.capitalizeFirstofEach(
-                    sighting.species?.value ?? '',
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 28),
+                  Text(
+                    StringUtils.capitalizeFirstofEach(
+                      sighting.species?.value ?? '',
+                    ),
+                    style: Theme.of(context).textTheme.headline5,
                   ),
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  sighting.location!.isEmpty
-                      ? l10n.unknown
-                      : sighting.location!,
-                ),
-                const SizedBox(height: 28),
-              ],
+                  const SizedBox(height: 4),
+                  Text(
+                    sighting.location!.isEmpty
+                        ? l10n.unknown
+                        : sighting.location!,
+                  ),
+                  const SizedBox(height: 28),
+                ],
+              ),
             ),
             _buildImage(),
           ],
