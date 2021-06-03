@@ -17,7 +17,7 @@ class ToggleSightingCubit extends Cubit<ToggleSightingState> {
   void toggleSightingToNullThenValue(Sighting? sighting) async {
     _sighting = null;
     emit(ToggledSigthingToNull());
-    await Future.delayed(const Duration(milliseconds: 1));
+    await Future.delayed(const Duration(milliseconds: 300));
     _sighting = sighting;
     emit(ToggledSigthingToValue());
   }

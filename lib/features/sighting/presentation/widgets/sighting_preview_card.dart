@@ -29,7 +29,7 @@ class _SighitingPreviewWidgetState extends State<SightingPreviewCard>
   void initState() {
     super.initState();
     _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
+        vsync: this, duration: const Duration(milliseconds: 300));
     _animation = Tween<double>(begin: -1, end: 0).animate(
       CurvedAnimation(
         parent: _animationController,

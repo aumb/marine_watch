@@ -41,6 +41,7 @@ class _AppState extends State<App> {
     return BlocProvider(
       create: (context) => _bloc,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         navigatorKey: widget.navigationKey,
         theme: ThemeUtils().themeData,
         localizationsDelegates: [
