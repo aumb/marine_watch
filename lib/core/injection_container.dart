@@ -38,6 +38,7 @@ Future<void> init({bool isTesting = false}) async {
     SharedPreferences.setMockInitialValues({});
   }
   final sharedPreferences = await SharedPreferences.getInstance();
+
   //Blocs & Cubits
   sl
     ..registerLazySingleton(
