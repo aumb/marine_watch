@@ -1,6 +1,6 @@
 # Marine Watch
 
-[![Marine Watch][marine_watch_logo]][marine_watch_link] 🤝 [![Very Good Ventures][logo]][very_good_ventures_link]
+![[marine_watch_logo]][marine_watch_link] 🤝 [![Very Good Ventures][logo]][very_good_ventures_link]
 
 Developed with 💙
 
