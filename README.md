@@ -178,5 +178,5 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 [very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli
 [very_good_ventures_link]: https://verygood.ventures/?utm_source=github&utm_medium=banner&utm_campaign=core
 [google_maps_flutter_link]: https://pub.dev/packages/google_maps_flutter
-[marine_watch_lgoo]:[logo.svg]
+[marine_watch_logo]:[logo.svg]
 [marine_watch_link]:[googlestorelink]
